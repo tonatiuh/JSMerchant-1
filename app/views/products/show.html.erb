@@ -13,8 +13,9 @@
   <%= @product.description %>
 </p>
 <p>
-  <strong>Image Url:</strong>
-  <%= @product.image_url %>
+  <%#<strong>Image Url:</strong>%>
+  <%#<%= @product.image_url %>
+  <%= image_tag "/images/products/#{@product.image_url}" %>
 </p>
 
 <p>
