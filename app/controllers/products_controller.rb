@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_filter :load_order
+
   def index
     @products = Product.all
   end
@@ -37,5 +39,14 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.destroy
     redirect_to products_url, :notice => "Successfully destroyed product."
+  end
+
+  def load_order
+    begin
+      @order = Order.find(session[:order_id])
+    rescue ActiveRecord::RecordNotFound
+      @order = Order.create(:status => "unsubmitted")
+      session[:order_id] = @order.id
+    end
   end
 end
