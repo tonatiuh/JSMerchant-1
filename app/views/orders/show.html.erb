@@ -8,7 +8,9 @@
   <strong>Status:</strong>
   <%= @order.status %>
 </p>
-
+<p>
+  Item Count: <%= @order.order_items.count %>
+</p>
 <p>
   <%= link_to "Edit", edit_order_path(@order) %> |
   <%= link_to "Destroy", @order, :confirm => 'Are you sure?', :method => :delete %> |

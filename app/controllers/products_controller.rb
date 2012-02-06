@@ -40,13 +40,4 @@ class ProductsController < ApplicationController
     @product.destroy
     redirect_to products_url, :notice => "Successfully destroyed product."
   end
-
-  def load_order
-    begin
-      @order = Order.find(session[:order_id])
-    rescue ActiveRecord::RecordNotFound
-      @order = Order.create(:status => "unsubmitted")
-      session[:order_id] = @order.id
-    end
-  end
 end

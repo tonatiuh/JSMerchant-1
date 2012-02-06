@@ -1,20 +1,10 @@
 class OrderItemsController < ApplicationController
-  def index
-    @order_items = OrderItem.all
-  end
-
-  def show
-    @order_item = OrderItem.find(params[:id])
-  end
-
-  def new
-    @order_item = OrderItem.new
-  end
+  before_filter :load_order
 
   def create
-    @order_item = OrderItem.new(params[:order_item])
+    @order_item = @order.order_items.new(:quantity => 1, :product_id => params[:product_id])
     if @order_item.save
-      redirect_to @order_item, :notice => "Successfully created order item."
+      redirect_to @order, :notice => "Successfully created order item."
     else
       render :action => 'new'
     end
