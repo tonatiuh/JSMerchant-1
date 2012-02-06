@@ -1,18 +1,32 @@
-<% title "Order" %>
+<h1>Your Order</h1>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @order.customer_id %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
-<p>
-  Item Count: <%= @order.order_items.count %>
-</p>
-<p>
-  <%= link_to "Edit", edit_order_path(@order) %> |
-  <%= link_to "Destroy", @order, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", orders_path %>
-</p>
+<table>
+  <tr>
+    <th>Customer</th>
+    <td><%= @order.customer_id %></td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td><%= @order.status %></td>
+  </tr>
+  <tr>
+    <th>Items</th>
+    <td><%= @order.order_items.count %></td>
+  </tr>
+  <tr>
+    <th>Items</th>
+    <th>Title</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+    <th>Subtotal</th>
+  </tr>
+  <% @order.order_items.each do |item| %>
+    <tr>
+      <td></td>
+      <td><%= item.product.title %></td>
+      <td><%= item.quantity %></td>
+      <td><%= item.product.price %></td>
+      <td></td>
+    </tr>
+  <% end %>
+</table>
