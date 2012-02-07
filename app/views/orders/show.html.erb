@@ -28,12 +28,11 @@
       <td><%= print_price item.product.price %></td>
       <td><%= print_price item.subtotal %></td>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
   <% end %>
-      <td>Your total comes out to: <%= print_price @order.total %></td>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Total:</td>
+    <td><%= print_price @order.total %></td>
 </table>
