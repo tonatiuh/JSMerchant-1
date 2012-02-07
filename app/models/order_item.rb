@@ -5,4 +5,8 @@ class OrderItem < ActiveRecord::Base
   belongs_to :product
 
   validates_presence_of :order_id, :product_id
+
+  def subtotal
+    self.product.price * self.quantity
+  end
 end
