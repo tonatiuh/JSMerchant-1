@@ -18,7 +18,7 @@ class OrderItemsController < ApplicationController
   def update
     @order_item = OrderItem.find(params[:id])
     if @order_item.update_attributes(params[:order_item])
-      redirect_to @order_item, :notice  => "Successfully updated order item."
+      redirect_to order_path(@order), :notice  => "Successfully updated order item."
     else
       render :action => 'edit'
     end
