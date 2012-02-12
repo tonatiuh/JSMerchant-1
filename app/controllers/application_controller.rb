@@ -3,9 +3,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def load_order
-    @order = Order.find_or_initialize_by_id(session[:order_id], :status => "unsubmitted")
-    if @order.new_record?
-      @order.save!
+    begin
+      @order = Order.find(session[:order_id])
+    rescue ActiveRecord::RecordNotFound
+      if current_user
+        @order = current_user.orders.create(:status => "unsubmitted")
+      else
+        @order = Order.create(:status => "unsubmitted")
+      end
       session[:order_id] = @order.id
     end
   end
