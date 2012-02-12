@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :orders
+
   def self.find_or_create_by_auth(auth_data)
     # Uses Rails dynamic finder ability
     # Attempt to find a match based on the following parameters
