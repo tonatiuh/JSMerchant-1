@@ -1,50 +1,58 @@
 <h1>Your Order</h1>
 
-<table>
-  <tr>
-    <th>Customer</th>
-    <td><%= @order.user.name if @order.user %></td>
-  </tr>
-  <tr>
-    <th>Status</th>
-    <td><%= @order.status %></td>
-  </tr>
-  <tr>
-    <th>Number of Items</th>
-    <td><%= @order.order_items.count %></td>
-  </tr>
-  <tr>
-    <th>Items</th>
-    <th>Title</th>
-    <th>Quantity</th>
-    <th>Stock</th>
-    <th>Unit Price</th>
-    <th>Subtotal</th>
-    <th></th>
-  </tr>
-  <% @order.order_items.each do |item| %>
+<%= form_for @order do |f| %>
+  <table>
     <tr>
-      <td><%= image_tag "/images/products/#{item.product.image_url}" %></td>
-      <td><%= item.product.title %></td>
-      <td><%= link_to item.quantity, edit_order_item_path(item) %></td>
-      <td><%= print_stock(item.product.stock, item.quantity).html_safe %></td>
-      <td><%= print_price item.product.price %></td>
-      <td><%= print_price item.subtotal %></td>
-      <td><%= link_to "Remove", order_item_path(item), 
-        :confirm => "Are you sure?", :method => :delete %></td>
+      <th>Customer</th>
+      <td><%= @order.user.name if @order.user %></td>
     </tr>
-  <% end %>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>Total:</td>
-    <td><%= print_price @order.total %></td>
-    <td></td>
-  </tr>
-</table>
+    <tr>
+      <th>Status</th>
+      <td><%= @order.status %></td>
+    </tr>
+    <tr>
+      <th>Number of Items</th>
+      <td><%= @order.order_items.count %></td>
+    </tr>
+    <tr>
+      <th>Items</th>
+      <th>Title</th>
+      <th>Quantity</th>
+      <th>Stock</th>
+      <th>Unit Price</th>
+      <th>Subtotal</th>
+      <th></th>
+    </tr>
+    <% @order.order_items.each do |item| %>
+      <tr>
+        <td><%= image_tag "/images/products/#{item.product.image_url}" %></td>
+        <td><%= item.product.title %></td>
+        <td><%= link_to item.quantity, edit_order_item_path(item) %></td>
+        <td><%= print_stock(item.product.stock, item.quantity).html_safe %></td>
+        <td><%= print_price item.product.price %></td>
+        <td><%= print_price item.subtotal %></td>
+        <td><%= link_to "Remove", order_item_path(item), :method => :delete %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Total:</td>
+      <td><%= print_price @order.total %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Shipping To:</th>
+      <td>
+        <%= f.select :address_id, current_user.addresses.collect { |a| [a.to_s, a.id] } %>
+      </td>
+    </tr>
+  </table>
+<% end %>
 <p>
+<%= link_to "New Address", new_address_path %>
 <%= link_to "Empty Cart", order_path(@order),
   :confirm => "Are you sure?", :method => :delete %>
 </p>
