@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    store_location
   end
 
   def show

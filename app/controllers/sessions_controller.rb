@@ -4,7 +4,8 @@ class SessionsController < ApplicationController
     session[:user_id] = @user.id
     load_order
     @order.update_attributes(:user => @user)
-    redirect_to root_path, :notice => "Logged in as #{@user.name}"
+    flash[:notice] = "Logged in as #{@user.name}"
+    redirect_back_or(root_path)
   end
 
   def destroy
