@@ -6,7 +6,9 @@ class Address < ActiveRecord::Base
 
   validates_presence_of :line1, :city, :state, :zip
 
+  default_scope :order => 'updated_at DESC'
+
   def to_s
-    return "#{line1}, #{line2 + ", " if line2}#{city}, #{state} #{zip}"
+    return "#{line1}, #{line2 + ", " if !line2.blank?}#{city}, #{state} #{zip}"
   end
 end

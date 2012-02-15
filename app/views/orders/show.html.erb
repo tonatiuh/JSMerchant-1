@@ -43,16 +43,20 @@
       <td><%= print_price @order.total %></td>
       <td></td>
     </tr>
+    <% if current_user && !current_user.addresses.empty? %>
     <tr>
       <th>Shipping To:</th>
       <td>
         <%= f.select :address_id, current_user.addresses.collect { |a| [a.to_s, a.id] } %>
       </td>
     </tr>
+  <% end %>
   </table>
 <% end %>
 <p>
-<%= link_to "New Address", new_address_path %>
+<% if current_user %>
+  <%= link_to "New Address", new_address_path %>
+<% end %>
 <%= link_to "Empty Cart", order_path(@order),
   :confirm => "Are you sure?", :method => :delete %>
 </p>

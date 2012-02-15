@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :orders
-  has_many :addresses
+  has_many :addresses, :dependent => :destroy
 
   def self.find_or_create_by_auth(auth_data)
     # Uses Rails dynamic finder ability
