@@ -12,7 +12,8 @@ class AddressesController < ApplicationController
   def create
     @address = current_user.addresses.new(params[:address])
     if @address.save
-      redirect_to order_path(@order), :notice => "Successfully created address."
+      flash[:notice] = "Successfully added an address."
+      redirect_back_or order_path(@order)
     else
       render :action => 'new'
     end
